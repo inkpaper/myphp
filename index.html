@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>列表页</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="public/css/style.css">
+	<script type="text/javascript" src="public/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+	<div class="content">
+		<div class="article-list">
+			<div class="list-title">文章列表</div>
+			<ul>
+			</ul>
+		</div>
+		<div class="notice-list">
+			<div class="list-title">通知列表</div>
+			<ul>
+			</ul>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url : "http://acfcms.stargt.com.my/index.php/Article/ArticleList",
+			type : "GET",
+			success : function(data){
+				var message = JSON.parse(data);
+				$(message.article).each(function(index, item){
+					$(".article-list ul").append("<li><a href=http://acfcms.stargt.com.my/article.php?articleid=" + item.id + ">" + item.title + "</a></li>");
+				});
+			}
+		});
+		$.ajax({
+			url : "http://acfcms.stargt.com.my/index.php/Notice/NoticeList",
+			type : "GET",
+			success : function(data){
+				console.log(data);
+				var message = JSON.parse(data);
+				$(message.notice).each(function(index, item){
+					$(".notice-list ul").append("<li><a href=http://acfcms.stargt.com.my/notice.php?noticeid=" + item.id + ">" + item.title + "</a></li>");
+				});
+			}
+		})
+	});
+</script>
+</html>
